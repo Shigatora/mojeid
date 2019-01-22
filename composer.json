@@ -11,8 +11,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.2.0",
-        "openid/php-openid": "dev-master"
+        "php": "^7.2",
+        "openid/php-openid": "dev-master",
+        "symfony/filesystem": "^4.2"
     },
     "autoload": {
         "psr-4": {
