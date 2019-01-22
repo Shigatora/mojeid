@@ -2,6 +2,9 @@
 namespace MojeId;
 
 
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Filesystem;
+
 class FileStore
 {
     /**
@@ -15,7 +18,6 @@ class FileStore
      */
     public function __construct(string $storePath = 'cache')
     {
-
         $this->storePath = $storePath;
     }
 
@@ -36,12 +38,13 @@ class FileStore
     }
 
     /**
-     * @throws \Exception
+     * @throws IOException
      */
     public function create()
     {
-        if (!file_exists($this->storePath) && mkdir($this->storePath, 0777, true)) {
-            throw new \Exception('Could not create new Filestore directory.');
+        $filesystem = new Filesystem();
+        if(!$filesystem->exists($this->storePath)) {
+            $filesystem->mkdir($this->storePath);
         }
 
         return new \Auth_OpenID_FileStore($this->storePath);

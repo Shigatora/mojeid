@@ -9,15 +9,19 @@ class Connect
      */
     private $endPoint;
 
-    public function __construct(string $endPoint, array $config = array())
+    /**
+     * @var Config
+     */
+    private $config;
+
+    public function __construct(string $endPoint, ?Config $config = null)
     {
+        if(is_null($config)) {
+            $config = new Config();
+        }
+
         $this->endPoint = $endPoint;
-        $this->config   = array_merge(
-            [
-            'testMode'  => 1
-            ],
-            $config
-        );
+        $this->config   = $config;
     }
 
     /**
@@ -25,15 +29,15 @@ class Connect
      */
     public function isTestMode(): bool
     {
-        return $this->config['testMode'];
+        return $this->config->isTestMode();
     }
 
     /**
-     * @param bool $testMode
+     * @return Config
      */
-    public function setTestMode(bool $testMode): void
+    public function getConfig(): Config
     {
-        $this->config['testMode'] = $testMode;
+        return $this->config;
     }
 
     /**
