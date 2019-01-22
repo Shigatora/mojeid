@@ -14,7 +14,12 @@ class Connect
      */
     private $config;
 
-    public function __construct(string $endPoint, ?Config $config = null)
+    /**
+     * @var Parameter|null
+     */
+    private $parameter;
+
+    public function __construct(string $endPoint, ?Config $config = null, ?Parameter $parameter = null)
     {
         if(is_null($config)) {
             $config = new Config();
@@ -22,6 +27,7 @@ class Connect
 
         $this->endPoint = $endPoint;
         $this->config   = $config;
+        $this->parameter = $parameter;
     }
 
     /**
@@ -61,6 +67,8 @@ class Connect
         if (!$consumerConnect) {
             throw new \Exception('Failed to create auth request.');
         }
+
+        var_dump($this->parameter->getAttributes());
 
         return $consumerConnect;
     }
